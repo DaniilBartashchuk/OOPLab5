@@ -1,4 +1,4 @@
-﻿using System; //+++++----------******
+﻿using System; 
 
 public abstract class AbstractCalc
 {
@@ -15,7 +15,8 @@ public abstract class AbstractCalc
 // Інтерфейс IAdvanced
 public interface IAdvanced
 {
-    double Pow(); // Додатковий метод для інженерного режиму
+    double Pow(); // метод для переведення км у милі
+    double Log(); // метод для обчислення lg(a)
 }
 
 // Обчислювальний модуль стандартного режиму
@@ -60,6 +61,13 @@ public class AdvancedCalc : OrdinaryCalc, IAdvanced
         if (num1 < 1 || num1 > 1000)
             throw new ArgumentOutOfRangeException("Input value for conversion must be between 1 and 1000.");
         return num1 * 0.621371; // Конвертація км у милі
+    }
+
+    public double Log()
+    {
+        if (num1 < 1 || num1 > 1000000)
+            throw new ArgumentOutOfRangeException("The value of 'a' must be in the range [1, 1000000].");
+        return Math.Log10(num1);
     }
 }
 
@@ -116,10 +124,26 @@ public class MainClass
             {
                 ((AdvancedCalc)advancedCalc).SetNum1(num1);
 
+                Console.WriteLine("Choose advanced operation: 'pow', 'log': ");
+                string operation = Console.ReadLine();
+
                 try
                 {
-                    double result = advancedCalc.Pow();
-                    Console.WriteLine($"{num1} km = {result} miles");
+                    double result;
+                    if (operation == "pow")
+                    {
+                        result = advancedCalc.Pow();
+                        Console.WriteLine($"{num1} km = {result} miles");
+                    }
+                    else if (operation == "log")
+                    {
+                        result = advancedCalc.Log();
+                        Console.WriteLine($"lg({num1}) = {result}");
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Invalid operation.");
+                    }
                 }
                 catch (Exception ex)
                 {
