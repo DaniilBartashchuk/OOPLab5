@@ -1,4 +1,4 @@
-﻿using System; //+----
+﻿using System; //___
 
 public abstract class AbstractCalc
 {
