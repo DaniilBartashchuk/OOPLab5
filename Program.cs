@@ -1,5 +1,5 @@
 ﻿using System; //___
-
+// рш р
 public abstract class AbstractCalc
 {
     protected string make = "Generic Calculator";
